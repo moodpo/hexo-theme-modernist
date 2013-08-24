@@ -1,5 +1,6 @@
 <%
 var title = '';
+var page_grouped = {}, years = [];
 if (page.category) title = page.category;
 if (page.tag) title = page.tag;
 if (page.archive){
@@ -9,7 +10,6 @@ if (page.archive){
     title = __('archive_a');
 
     if (theme.archive_yearly) {
-      var page_grouped = {}, years = [];
       page.each(function (item) {
         var year = item.date.format('YYYY');
         if (!page_grouped[year]) {
