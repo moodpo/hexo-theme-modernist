@@ -1,6 +1,17 @@
 <%
 var title = '';
 var page_grouped = {}, years = [];
+if (theme.archive_yearly) {
+  page.each(function (item) {
+    var year = item.date.format('YYYY');
+    if (!page_grouped[year]) {
+      page_grouped[year] = [];
+      years.push(year);
+    }
+    page_grouped[year].push(item);
+  });
+  years.sort(function (year) { return -year; });
+}
 if (page.category) title = page.category;
 if (page.tag) title = page.tag;
 if (page.archive){
@@ -8,18 +19,6 @@ if (page.archive){
     title = page.year + (page.month ? '/' + page.month : '');
   } else {
     title = __('archive_a');
-
-    if (theme.archive_yearly) {
-      page.each(function (item) {
-        var year = item.date.format('YYYY');
-        if (!page_grouped[year]) {
-          page_grouped[year] = [];
-          years.push(year);
-        }
-        page_grouped[year].push(item);
-      });
-      years.sort(function (year) { return -year; });
-    }
   }
 }
 %>
